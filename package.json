@@ -1,5 +1,5 @@
 {
-  "name": "@zerologicspace/z-auth",
+  "name": "@zlspace/z-auth",
   "version": "1.0.0",
   "description": "ZAuth is a authentication service for ZLS.NP",
   "main": "./dist/index.js",

@@ -5,7 +5,7 @@ ZAuth is a authentication service for ZLS.
 ## Installation
 
 ```bash
-npm install @zerologicspace/z-auth
+npm install @zlspace/z-auth
 ```
 
 ## Usage
@@ -13,8 +13,8 @@ npm install @zerologicspace/z-auth
 ### User Service
 
 ```javascript
-import { createConnection, UserService, RoleService, PermissionService } from "@zerologicspace/z-auth";
-import type { I_Users } from "@zerologicspace/z-auth";
+import { createConnection, UserService, RoleService, PermissionService } from "@zlspace/z-auth";
+import type { I_Users } from "@zlspace/z-auth";
 
 const zAuth = createConnection({
   baseURL: "https://z-auth-stage.zerologicspace.com/api",
@@ -48,7 +48,7 @@ Output:
 ```
 
 ```javascript
-import { createConnection, UserService } from "@zerologicspace/z-auth";
+import { createConnection, UserService } from "@zlspace/z-auth";
 
 const zAuth = createConnection({
   baseURL: "https://z-auth-stage.zerologicspace.com/api",
