@@ -89,7 +89,7 @@ changePassword(id: string, data: I_ChangePassword)
 deleteUserById(id: string)
 logout(id: string)
 verifyEmail(token: string)
-updateUserRole(userId: string, data: I_UpdateUserByIdRequest)
+updateUserById(userId: string, data: I_UpdateUserByIdRequest)
 
 ```
 ### Role Service

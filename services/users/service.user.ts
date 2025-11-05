@@ -6,7 +6,7 @@ import {
   resetPasswordValidator,
   changePasswordValidator,
   forgotPasswordValidator,
-  updateUserRoleValidator,
+  updateUserValidator,
 } from "./validators";
 
 export class UserService {
@@ -155,10 +155,10 @@ export class UserService {
     }
   }
 
-  async updateUserRole (userId: string, data: I_UpdateUserByIdRequest) {
+  async updateUserById (userId: string, data: I_UpdateUserByIdRequest) {
     try {
-      await validateRequest(updateUserRoleValidator,data)
-      const response = await this.client.patch(`/users/update-role/${userId}`, data);
+      await validateRequest(updateUserValidator,data)
+      const response = await this.client.patch(`/users/${userId}`, data);
       return response.data;
     } catch (error: any) {
       if (Array.isArray(error)) {

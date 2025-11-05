@@ -1,8 +1,11 @@
 export interface I_Users {
   email?: string;
   contactNumber?: string;
-  password: string;
-  roleId: number[];
+  password?: string;
+  isBlocked?: boolean;
+  roleId?: number[];
+  recoveryEmail?: string | null;
+  recoveryNumber?: string | null;
 }
 
 export interface I_ResetPassword {
@@ -56,6 +59,8 @@ export interface I_CreatedUser {
 export interface I_ForgotPasswordRequest {
   email?: string;
   contactNumber?: string;
+  recoveryEmail?: string;
+  recoveryNumber?: string;
 }
 
 export interface I_ForgotPasswordResponse {
