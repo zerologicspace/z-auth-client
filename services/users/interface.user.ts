@@ -70,7 +70,10 @@ export interface I_ForgotPasswordResponse {
 export interface I_UpdateUserByIdRequest {
   email?: string;
   contactNumber?: string;
-  roleId: number[];
+  recoveryEmail?: string;
+  recoveryNumber?: string;
+  isBlocked?: boolean;
+  roleId?: number[];
 }
 
 export interface I_ResetPassword {
