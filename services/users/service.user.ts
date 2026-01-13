@@ -66,10 +66,17 @@ export class UserService {
     }
   }
 
-  async resetPassword(token: string, data: I_ResetPassword) {
+  async resetPassword(token: string, tenantId:number, data: I_ResetPassword) {
     try {
       await validateRequest(resetPasswordValidator, data);
-      const response = await this.client.patch(`/users/reset-password/${token}`, data);
+      const response = await this.client.patch(`/users/reset-password`, 
+        { params : 
+          {
+            tenantId,
+            resetToken: token
+          }}, 
+        data
+      );
       return response.data;
     } catch (error: any) {
       if (Array.isArray(error)) {
@@ -143,9 +150,14 @@ export class UserService {
     }
   }
 
-  async verifyEmail(token: string) {
+  async verifyEmail(token: string, tenantId:number) {
     try {
-      const response = await this.client.get(`/users/verify-email/${token}`);
+      const response = await this.client.get(`/users/verify-email`, {
+        params: {
+          tenantId,
+          verificationToken: token,
+        },
+      });
       return response.data;
     } catch (error: any) {
       return {

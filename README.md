@@ -84,11 +84,11 @@ createUser(data: I_Users)
 login(data: I_LoginRequest)
 forgotPassword(data: I_ForgotPasswordRequest)
 getUserById(id: string)
-resetPassword(token: string, data: I_ResetPassword)
+resetPassword(token: string, tenantId:number, data: I_ResetPassword)
 changePassword(id: string, data: I_ChangePassword)
 deleteUserById(id: string)
 logout(id: string)
-verifyEmail(token: string)
+verifyEmail(token: string, tenantId:number)
 updateUserById(userId: string, data: I_UpdateUserByIdRequest)
 
 ```

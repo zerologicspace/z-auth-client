@@ -25,20 +25,20 @@ export class ZAuthClient {
         apisecretkey: this.apiSecretKey,
         };
     }
-    async get(url: string) {
-        return this.client.get(url, { headers: this.getHeaders() });
+    async get(url: string, params?: any) {
+        return this.client.get(url, { headers: this.getHeaders(), params });
     }
     
-    async post(url: string, data?: any) {
-    return this.client.post(url, data, { headers: this.getHeaders() });
+    async post(url: string, data?: any, params?: any) {
+    return this.client.post(url, data, { headers: this.getHeaders(), params });
     }
 
-    async patch(url: string, data?: any) {
-    return this.client.patch(url, data, { headers: this.getHeaders() });
+    async patch(url: string, data?: any, params?: any) {
+    return this.client.patch(url, data, { headers: this.getHeaders(), params });
     }
 
-    async delete(url: string) {
-    return this.client.delete(url, { headers: this.getHeaders() });
+    async delete(url: string, params?: any) {
+    return this.client.delete(url, { headers: this.getHeaders(), params });
     }
 
 }
