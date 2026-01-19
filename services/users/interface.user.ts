@@ -9,24 +9,24 @@ export interface I_Users {
 }
 
 export interface I_ResetPassword {
-  password: string;
-  confirmPassword: string;
+  password?: string;
+  confirmPassword?: string;
 }
 
 export interface I_VerficationToken {
-  verificationToken: string;
-  verificationTokenExpiresAt: Date;
+  verificationToken?: string;
+  verificationTokenExpiresAt?: string;
 }
 
 export interface I_ResetPasswordToken {
-  resetToken: string;
-  resetTokenExpiresAt: Date;
+  resetToken?: string;
+  resetTokenExpiresAt?: string;
 }
 
 export interface I_LoginRequest {
   email?: string;
   contactNumber?: string;
-  password: string;
+  password?: string;
 }
 
 export interface I_LoginResponse {
@@ -53,7 +53,11 @@ export interface I_ChangePassword {
 
 export interface I_CreatedUser {
   id: string;
+  verificationToken?: string;
+  expiryHours?: string;
+  verificationLink?: string;
   message?: string;
+  tenantId?: number;
 }
 
 export interface I_ForgotPasswordRequest {
@@ -64,9 +68,11 @@ export interface I_ForgotPasswordRequest {
 }
 
 export interface I_ForgotPasswordResponse {
-  resetToken: string;
+  resetToken?: string;
+  tenantId?: number;
+  message?: string;
+  expiryHours?: string;
 }
-
 export interface I_UpdateUserByIdRequest {
   email?: string;
   contactNumber?: string;
@@ -76,7 +82,16 @@ export interface I_UpdateUserByIdRequest {
   roleId?: number[];
 }
 
-export interface I_ResetPassword {
-  password: string;
-  confirmPassword: string;
+export interface I_SendVerificationEmailResponse {
+  verificationToken?: string;
+  expiryHours?: string;
+  tenantId?: number;
+  message?: string;
+}
+export interface I_VerifyEmailResponse {
+  status?: number;
+  id?: number;
+  error?: string;
+  needEmailVerification?: boolean;
+  allowZAuthEmailVerification?: boolean;
 }

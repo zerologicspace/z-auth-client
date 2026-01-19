@@ -80,16 +80,17 @@ Output:
 ### User Service
 
 ```javascript
-createUser(data: I_Users)
-login(data: I_LoginRequest)
-forgotPassword(data: I_ForgotPasswordRequest)
+createUser(data: I_Users) // {data: email, password, contactNumber, recoveryEmail, recoveryNumber, roleId; all optional}
+login(data: I_LoginRequest) // {data: email, password, contactNumber(optional)}
+forgotPassword(data: I_ForgotPasswordRequest) // {data: email, contactNumber, recoveryEmail, recoveryNumber; all optional}
 getUserById(id: string)
-resetPassword(token: string, tenantId:number, data: I_ResetPassword)
-changePassword(id: string, data: I_ChangePassword)
+resetPassword(token: string, tenantId:number, data: I_ResetPassword) //{data: password, confirmPassword}
+changePassword(id: string, data: I_ChangePassword) //{data: currentPassword, newPassword, confirmPassword}
 deleteUserById(id: string)
 logout(id: string)
+sendVerificationEmail(email: string)
 verifyEmail(token: string, tenantId:number)
-updateUserById(userId: string, data: I_UpdateUserByIdRequest)
+updateUserById(userId: string, data: I_UpdateUserByIdRequest) //{data: email, contactNumber, recoveryEmail, recoveryNumber, isBlocked, roleId; all optional}
 
 ```
 ### Role Service

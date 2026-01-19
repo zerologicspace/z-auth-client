@@ -1,6 +1,6 @@
 // services/users/service.user.ts
 import { ZAuthClient, validateRequest } from "../../lib/connection";
-import { I_Users , I_ChangePassword, I_ForgotPasswordRequest, I_LoginRequest, I_ResetPassword, I_UpdateUserByIdRequest } from "./interface.user";
+import { I_Users , I_ChangePassword, I_ForgotPasswordRequest, I_LoginRequest, I_ResetPassword, I_UpdateUserByIdRequest, I_SendVerificationEmailResponse } from "./interface.user";
 import {
   createUserValidator,
   resetPasswordValidator,
@@ -66,17 +66,10 @@ export class UserService {
     }
   }
 
-  async resetPassword(token: string, tenantId:number, data: I_ResetPassword) {
+  async resetPassword(token: string, tenantId: number, data: I_ResetPassword) {
     try {
       await validateRequest(resetPasswordValidator, data);
-      const response = await this.client.patch(`/users/reset-password`, 
-        { params : 
-          {
-            tenantId,
-            resetToken: token
-          }}, 
-        data
-      );
+      const response = await this.client.patch(`/users/reset-password?tenantId=${tenantId}&resetToken=${token}`, data);
       return response.data;
     } catch (error: any) {
       if (Array.isArray(error)) {
@@ -138,6 +131,18 @@ export class UserService {
     }
   }
 
+  async sendVerificationEmail(email: string) {
+    try {
+      const response = await this.client.post(`/users/send-email-verification`, { email });
+      return response.data;
+    } catch (error: any) {
+      return {
+        error: error.response?.data || error.message,
+        status: error.response?.status || 500,
+      };
+    }
+  }
+
   async logout(id: string) {
     try {
       const response = await this.client.get(`/users/logout/${id}`);
@@ -152,12 +157,7 @@ export class UserService {
 
   async verifyEmail(token: string, tenantId:number) {
     try {
-      const response = await this.client.get(`/users/verify-email`, {
-        params: {
-          tenantId,
-          verificationToken: token,
-        },
-      });
+      const response = await this.client.get(`/users/verify-email?tenantId=${tenantId}&verificationToken=${token}`);
       return response.data;
     } catch (error: any) {
       return {
