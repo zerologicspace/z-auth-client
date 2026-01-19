@@ -1,6 +1,6 @@
 {
   "name": "@zlspace/z-auth",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "ZAuth is a authentication service for ZLS.NP",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
