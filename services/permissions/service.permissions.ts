@@ -113,4 +113,16 @@ export class PermissionsService {
             }
         }
     }
+
+    async deleteAllPermissionByRoleId(roleId: number) {
+        try {
+            const response = await this.client.delete(`/permissions/delete-all-permissions/${roleId}`)
+            return response.data
+        } catch (error:any) {
+            return {
+                error: error.response?.data || error.message,
+                status: error.response?.status || 500,
+            }
+        }
+    }
 }
