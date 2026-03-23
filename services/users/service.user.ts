@@ -210,9 +210,9 @@ export class UserService {
     }
   }
 
-  async googleAuth(token: string, roleId: string) {
+  async authLogin(token: string) {
     try {
-      const response = await this.client.post("/auth/google", { token, roleId });
+      const response = await this.client.post("/auth/login", { token });
       return response.data;
     } catch (error: any) {
       return {
@@ -222,9 +222,9 @@ export class UserService {
     } 
   }
 
-  async facebookAuth(token: string, roleId: string) {
+  async authRegister(token: string, roleId: string) {
     try {
-      const response = await this.client.post("/auth/facebook", { token, roleId });
+      const response = await this.client.post("/auth/register", { token, roleId });
       return response.data;
     } catch (error: any) {
       return {
