@@ -222,7 +222,7 @@ export class UserService {
     } 
   }
 
-  async authRegister(token: string, roleId: string) {
+  async authRegister(token: string, roleId: number[]) {
     try {
       const response = await this.client.post("/auth/register", { token, roleId });
       return response.data;
