@@ -40,7 +40,18 @@ export class ZAuthClient {
     async delete(url: string, params?: any) {
     return this.client.delete(url, { headers: this.getHeaders(), params });
     }
-
+    
+    getBaseUrl() {
+        return this.client.defaults.baseURL;
+    }
+    
+    getApiKey() {
+        return this.apiKey;
+    }
+    
+    getApiSecretKey() {
+        return this.apiSecretKey;
+    }
 }
 
 export function createConnection(config: {

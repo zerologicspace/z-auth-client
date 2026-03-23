@@ -209,4 +209,29 @@ export class UserService {
       };
     }
   }
+
+  async googleAuth(token: string, roleId: string) {
+    try {
+      const response = await this.client.post("/auth/google", { token, roleId });
+      return response.data;
+    } catch (error: any) {
+      return {
+        error: error.response?.data || error.message,
+        status: error.response?.status || 500,
+      };
+    } 
+  }
+
+  async facebookAuth(token: string, roleId: string) {
+    try {
+      const response = await this.client.post("/auth/facebook", { token, roleId });
+      return response.data;
+    } catch (error: any) {
+      return {
+        error: error.response?.data || error.message,
+        status: error.response?.status || 500,
+      };
+    } 
+  }
+
 }
