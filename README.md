@@ -93,6 +93,8 @@ verifyEmail(token: string, tenantId:number)
 updateUserById(userId: string, data: I_UpdateUserByIdRequest) //{data: email, contactNumber, recoveryEmail, recoveryNumber, isBlocked, roleId; all optional}
 authLogin(token: string) //idtoken returned from google, role id optional
 authRegister(token: string, roleId: number[]) //access_token returned from facebook, role id optional
+sendEmailVerificationAndRegisterEmail(email: string, roleId?: number[]) //email is required, role id optional
+systemGeneratedUserPassword(token: string, password: string, confirmPassword: string) //token is required, password and confirmPassword are required
 
 ```
 ### Role Service

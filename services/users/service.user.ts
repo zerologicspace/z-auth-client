@@ -270,7 +270,7 @@ export class UserService {
       };
     }
   }
-  async systemGeneratePassword(
+  async systemGeneratedUserPassword(
     token: string,
     password: string,
     confirmPassword: string,
