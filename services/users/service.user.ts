@@ -1,6 +1,14 @@
 // services/users/service.user.ts
 import { ZAuthClient, validateRequest } from "../../lib/connection";
-import { I_Users , I_ChangePassword, I_ForgotPasswordRequest, I_LoginRequest, I_ResetPassword, I_UpdateUserByIdRequest, I_SendVerificationEmailResponse } from "./interface.user";
+import {
+  I_Users,
+  I_ChangePassword,
+  I_ForgotPasswordRequest,
+  I_LoginRequest,
+  I_ResetPassword,
+  I_UpdateUserByIdRequest,
+  I_SendVerificationEmailResponse,
+} from "./interface.user";
 import {
   createUserValidator,
   resetPasswordValidator,
@@ -24,7 +32,7 @@ export class UserService {
     } catch (error: any) {
       if (Array.isArray(error)) {
         return {
-          error: error.join(', '),
+          error: error.join(", "),
           status: 400,
         };
       }
@@ -69,7 +77,10 @@ export class UserService {
   async resetPassword(token: string, tenantId: number, data: I_ResetPassword) {
     try {
       await validateRequest(resetPasswordValidator, data);
-      const response = await this.client.patch(`/users/reset-password?tenantId=${tenantId}&resetToken=${token}`, data);
+      const response = await this.client.patch(
+        `/users/reset-password?tenantId=${tenantId}&resetToken=${token}`,
+        data,
+      );
       return response.data;
     } catch (error: any) {
       if (Array.isArray(error)) {
@@ -90,7 +101,7 @@ export class UserService {
       await validateRequest(changePasswordValidator, data);
       const response = await this.client.patch(
         `/users/change-password/${id}`,
-        data
+        data,
       );
       return response.data;
     } catch (error: any) {
@@ -133,7 +144,10 @@ export class UserService {
 
   async sendVerificationEmail(email: string) {
     try {
-      const response = await this.client.post(`/users/send-email-verification`, { email });
+      const response = await this.client.post(
+        `/users/send-email-verification`,
+        { email },
+      );
       return response.data;
     } catch (error: any) {
       return {
@@ -155,9 +169,11 @@ export class UserService {
     }
   }
 
-  async verifyEmail(token: string, tenantId:number) {
+  async verifyEmail(token: string, tenantId: number) {
     try {
-      const response = await this.client.get(`/users/verify-email?tenantId=${tenantId}&verificationToken=${token}`);
+      const response = await this.client.get(
+        `/users/verify-email?tenantId=${tenantId}&verificationToken=${token}`,
+      );
       return response.data;
     } catch (error: any) {
       return {
@@ -167,9 +183,9 @@ export class UserService {
     }
   }
 
-  async updateUserById (userId: string, data: I_UpdateUserByIdRequest) {
+  async updateUserById(userId: string, data: I_UpdateUserByIdRequest) {
     try {
-      await validateRequest(updateUserValidator,data)
+      await validateRequest(updateUserValidator, data);
       const response = await this.client.patch(`/users/${userId}`, data);
       return response.data;
     } catch (error: any) {
@@ -219,19 +235,60 @@ export class UserService {
         error: error.response?.data || error.message,
         status: error.response?.status || 500,
       };
-    } 
+    }
   }
 
   async authRegister(token: string, roleId: number[]) {
     try {
-      const response = await this.client.post("/auth/register", { token, roleId });
+      const response = await this.client.post("/auth/register", {
+        token,
+        roleId,
+      });
       return response.data;
     } catch (error: any) {
       return {
         error: error.response?.data || error.message,
         status: error.response?.status || 500,
       };
-    } 
+    }
   }
 
+  async sendEmailVerificationAndRegisterEmail(
+    email: string,
+    roleId?: number[],
+  ) {
+    try {
+      const response = await this.client.post(
+        `/users/send-email-verification-and-register-email`,
+        { email, roleId },
+      );
+      return response.data;
+    } catch (error: any) {
+      return {
+        error: error.response?.data || error.message,
+        status: error.response?.status || 500,
+      };
+    }
+  }
+  async systemGeneratePassword(
+    token: string,
+    password: string,
+    confirmPassword: string,
+  ) {
+    try {
+      const response = await this.client.patch(
+        `/users/update-system-generated-user-password/${token}`,
+        { password, confirmPassword: confirmPassword },
+      );
+      return response.data;
+    } catch (error: any) {
+      return {
+        error:
+          error.response?.data.errors ?
+          Object.values(error.response.data.errors).join(", ") : error.response?.data ||
+          error.message,
+        status: error.response?.status || 500,
+      };
+    }
+  }
 }
