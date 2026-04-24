@@ -103,6 +103,6 @@ export interface I_SystemGeneratedUserPassword {
 }
 export interface I_SendEmailVerificationAndRegisterEmailRequest {
   email?: string;
-  roleId?: number;
+  roleId?: number[];
   forAdmin?: boolean;
 }
