@@ -255,11 +255,12 @@ export class UserService {
 
   async sendEmailVerificationAndRegisterEmail(
     email: string,
+    forAdmin: boolean,
     roleId?: number[],
   ) {
     try {
       const response = await this.client.post(
-        `/users/send-email-verification-and-register-email`,
+        `/users/send-email-verification-and-register-email?forAdmin=${forAdmin}`,
         { email, roleId },
       );
       return response.data;
