@@ -8,6 +8,8 @@ import {
   I_ResetPassword,
   I_UpdateUserByIdRequest,
   I_SendVerificationEmailResponse,
+  I_SendEmailVerificationAndRegisterEmailRequest,
+  I_SystemGeneratedUserPassword,
 } from "./interface.user";
 import {
   createUserValidator,
@@ -253,15 +255,11 @@ export class UserService {
     }
   }
 
-  async sendEmailVerificationAndRegisterEmail(
-    email: string,
-    forAdmin: boolean,
-    roleId?: number[],
-  ) {
+  async sendEmailVerificationAndRegisterEmail(data: I_SendEmailVerificationAndRegisterEmailRequest) {
     try {
       const response = await this.client.post(
-        `/users/send-email-verification-and-register-email?forAdmin=${forAdmin}`,
-        { email, roleId },
+        `/users/send-email-verification-and-register-email?forAdmin=${data.forAdmin}`,
+        { email: data.email, roleId: data.roleId },
       );
       return response.data;
     } catch (error: any) {
@@ -271,15 +269,11 @@ export class UserService {
       };
     }
   }
-  async systemGeneratedUserPassword(
-    token: string,
-    password: string,
-    confirmPassword: string,
-  ) {
+  async systemGeneratedUserPassword(data: I_SystemGeneratedUserPassword) {
     try {
       const response = await this.client.patch(
-        `/users/update-system-generated-user-password/${token}`,
-        { password, confirmPassword: confirmPassword },
+        `/users/update-system-generated-user-password/${data.token}`,
+        { password: data.password, confirmPassword: data.confirmPassword },
       );
       return response.data;
     } catch (error: any) {

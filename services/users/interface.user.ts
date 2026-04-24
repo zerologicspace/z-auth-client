@@ -95,3 +95,14 @@ export interface I_VerifyEmailResponse {
   needEmailVerification?: boolean;
   allowZAuthEmailVerification?: boolean;
 }
+
+export interface I_SystemGeneratedUserPassword {
+  token: string;
+  password: string;
+  confirmPassword: string;
+}
+export interface I_SendEmailVerificationAndRegisterEmailRequest {
+  email?: string;
+  roleId?: number;
+  forAdmin?: boolean;
+}
