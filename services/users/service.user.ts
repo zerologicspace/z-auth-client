@@ -255,7 +255,9 @@ export class UserService {
     }
   }
 
-  async sendEmailVerificationAndRegisterEmail(data: I_SendEmailVerificationAndRegisterEmailRequest) {
+  async sendEmailVerificationAndRegisterEmail(
+    data: I_SendEmailVerificationAndRegisterEmailRequest,
+  ) {
     try {
       const response = await this.client.post(
         `/users/send-email-verification-and-register-email?forAdmin=${data.forAdmin}`,
@@ -277,11 +279,43 @@ export class UserService {
       );
       return response.data;
     } catch (error: any) {
+      console.log(error.response.data, "error");
       return {
-        error:
-          error.response?.data.errors ?
-          Object.values(error.response.data.errors).join(", ") : error.response?.data ||
-          error.message,
+        error: error.response?.data.errors
+          ? Object.values(error.response.data.errors).join(", ")
+          : error.response?.data || error.message,
+        status: error.response?.status || 500,
+      };
+    }
+  }
+
+  async verifySystemGeneratedUserToken(token: string) {
+    try {
+      const response = await this.client.patch(
+        `/users/verify-system-generated-user-token/${token}`,
+      );
+      return response.data;
+    } catch (error: any) {
+      return {
+        error: error.response?.data || error.message,
+        status: error.response?.status || 500,
+      };
+    }
+  }
+
+  async changeSystemGeneratedPasswordByUserId(data: any) {
+    try {
+      const response = await this.client.patch(
+        `/users/changed-system-generated-password-by-user-id/${data.userId}`,
+        {
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+        },
+      );
+      return response.data;
+    } catch (error: any) {
+      return {
+        error: error.response?.data || error.message,
         status: error.response?.status || 500,
       };
     }
