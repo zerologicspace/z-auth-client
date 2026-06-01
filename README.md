@@ -88,7 +88,7 @@ resetPassword(token: string, tenantId:number, data: I_ResetPassword) //{data: pa
 changePassword(id: string, data: I_ChangePassword) //{data: currentPassword, newPassword, confirmPassword}
 deleteUserById(id: string)
 logout(id: string)
-sendVerificationEmail(email: string)
+sendVerificationEmail(email: string, forAdmin?: boolean)
 verifyEmail(token: string, tenantId:number)
 updateUserById(userId: string, data: I_UpdateUserByIdRequest) //{data: email, contactNumber, recoveryEmail, recoveryNumber, isBlocked, roleId; all optional}
 authLogin(token: string) //idtoken returned from google, role id optional

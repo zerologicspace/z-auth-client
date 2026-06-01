@@ -144,10 +144,10 @@ export class UserService {
     }
   }
 
-  async sendVerificationEmail(email: string) {
+  async sendVerificationEmail(email: string, forAdmin: boolean = false) {
     try {
       const response = await this.client.post(
-        `/users/send-email-verification`,
+        `/users/send-email-verification?forAdmin=${forAdmin}`,
         { email },
       );
       return response.data;
